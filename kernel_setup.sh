@@ -39,20 +39,22 @@ sudo apt -y install vim git openssh-client libssl-dev \
 sudo apt -y install kernel-package fakeroot ccache qemu qemu-kvm qemu-system \
 		 libvirt-daemon bridge-utils virt-manager gdb
 
+echo -e "
+#This is for the cd.. so that you can go to specified directory
 
-cat <<- EOF >> ~/.bashrc
 function cd_up() {
-	case $1 in
+	case \$1 in
 	*[!0-9]*)
-		cd $( pwd | sed -r "s|(.*/$1[^/]*/).*|\1|" )
+		cd \$( pwd | sed -r \"s|(.*/\$1[^/]*/).*|\1|\" )
 		;;
 	*)
-		cd $(printf "%0.0s../" $(seq 1 $1));
+		cd \$(printf \"%0.0s../\" \$(seq 1 \$1));
 		;;
 	esac
 }
 alias 'cd..'='cd_up'
-EOF
+
+" >> ~/.bashrc
 
 cat <<- EOF >> ~/.vimrc
 syntax on
