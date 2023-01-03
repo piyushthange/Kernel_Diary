@@ -18,7 +18,7 @@ read -p "Enter user.email for git: " MAIL
 read -p "Enter user.name for git: " NAME
 read -p "Enter comment for \"ssk-keygen -C\"" SSH_C
 echo -e "${CO}"
-sudo apt update && sudo apt upgrade
+sudo apt -y update && sudo apt -y upgrade
 CORE_COUNT=egrep -c '(vmx | svm)' /proc/cpuinfo
 if [ $CORE_COUNT > 0 ]
 then
@@ -30,13 +30,13 @@ else
 	exit 0
 fi
 
-sudo apt install vim git openssh-client libssl-dev \
+sudo apt -y install vim git openssh-client libssl-dev \
 		 linux-headers-`uname -r` build-essential \
 		 dwarves zstd libelf-dev flex bison exuberant-ctags \
 		 cscope git-email libncurses5-dev gcc make terminator \
 		 bc libz-dev openssl vim-gtk3 \
 
-sudo apt install kernel-package fakeroot ccache qemu qemu-kvm qemu-system \
+sudo apt -y install kernel-package fakeroot ccache qemu qemu-kvm qemu-system \
 		 libvirt-daemon bridge-utils virt-manager gdb
 
 
@@ -85,7 +85,7 @@ EOF
 git config --global user.email "$MAIL"
 git config --global user.name "$NAME"
 git config --global core.editor vim
-ssk-keygen -t ed25519 -C "$SSH_C"
+ssh-keygen -t ed25519 -C "$SSH_C"
 
 echo -e "${BCyan}"
 echo
